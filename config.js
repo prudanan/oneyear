@@ -20,7 +20,7 @@ const CONFIG = {
 
   // The day you became official. Format: "2025-07-01T00:00:00"
   // The live counter measures from this exact moment.
-  anniversaryDate: "2025-07-01T00:00:00",
+  anniversaryDate: "2026-07-01T00:00:00",
 
   // Short line shown on the intro screen under the title.
   introSubtitle: "For the most amazing girl.",
@@ -34,7 +34,7 @@ const CONFIG = {
   ------------------------------------------------------------------ */
   music: {
     src: "assets/music/song.mp3",   // e.g. "assets/music/our-song.mp3"
-    volume: 0.5,                     // 0.0 (silent) to 1.0 (full)
+    volume: 0.3,                     // 0.0 (silent) to 1.0 (full)
     fadeOnLetter: 0.12               // music dips to this volume during the final letter
   },
 
