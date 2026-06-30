@@ -20,7 +20,7 @@ const CONFIG = {
 
   // The day you became official. Format: "2025-07-01T00:00:00"
   // The live counter measures from this exact moment.
-  anniversaryDate: "2024-06-30T19:30:00",
+  anniversaryDate: "2025-07-01T00:00:00",
 
   // Short line shown on the intro screen under the title.
   introSubtitle: "For the most amazing girl.",
@@ -69,9 +69,9 @@ const CONFIG = {
      Leave the array empty [] to show elegant gradient cards instead.
   ------------------------------------------------------------------ */
   photos: [
-    // "assets/photos/1.jpg",
-    // "assets/photos/2.jpg",
-    // "assets/photos/3.jpg"
+    "assets/photos/1.jpg",
+    "assets/photos/2.jpg",
+    "assets/photos/3.jpg"
   ],
 
 
