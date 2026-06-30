@@ -1,0 +1,77 @@
+/* =====================================================================
+   MOBILE.CSS — responsive tuning, touch ergonomics, safe areas.
+   Base styles in main.css are already mobile-first; this refines for
+   small phones and scales up gracefully for tablets and desktop.
+   ===================================================================== */
+
+/* ---------- Larger touch targets on coarse pointers ---------- */
+@media (pointer: coarse) {
+  .tabbar__btn { min-width: 60px; }
+  .btn { min-height: 48px; }
+  .modal__close { width: 42px; height: 42px; }
+}
+
+/* ---------- Small phones (iPhone SE / mini) ---------- */
+@media (max-width: 380px) {
+  :root { --tabbar-h: 64px; }
+  .counter__grid { gap: 8px; }
+  .counter__unit { padding: 10px 2px; }
+  .reasons__grid { grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 8px; }
+  .home__cards, .games__grid { grid-template-columns: 1fr; }
+  .tabbar__btn { padding: 8px 10px; }
+  .tabbar__text { font-size: 0.6rem; }
+}
+
+/* ---------- Standard phones ---------- */
+@media (min-width: 381px) and (max-width: 600px) {
+  .home__cards { grid-template-columns: 1fr; }
+  .games__grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---------- Short landscape phones: keep things reachable ---------- */
+@media (max-height: 480px) and (orientation: landscape) {
+  .intro__title { font-size: clamp(2rem, 9vh, 3rem); }
+  .counter { padding: 16px; }
+  .catch-stage { height: 60svh; }
+}
+
+/* ---------- Tablets ---------- */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .reasons__grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+  .memory-grid { gap: 14px; }
+}
+
+/* ---------- Desktop: center the experience, keep it phone-like ---------- */
+@media (min-width: 1025px) {
+  .view__scroll { padding-left: 0; padding-right: 0; }
+  .section-head, .counter, .home__hero, .home__cards,
+  .games__grid, .reasons__grid, .photos, .letter { margin-left: auto; margin-right: auto; }
+  .memory-grid { grid-template-columns: repeat(4, minmax(0, 90px)); justify-content: center; }
+  .reasons__grid { max-width: 820px; }
+
+  /* Pointer devices get tasteful hover lift (never required for function) */
+  .home__card:hover, .game-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255,255,255,0.25);
+  }
+  .envelope:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .btn--gold:hover { box-shadow: var(--glow-gold), var(--shadow-md); }
+  .flower-pick:hover { transform: scale(1.08); }
+}
+
+/* ---------- Very large screens: cap width so it stays intimate ---------- */
+@media (min-width: 1400px) {
+  .view__scroll { max-width: 1100px; margin: 0 auto; }
+}
+
+/* ---------- Hover capability guard ----------
+   Anything that *could* be hover-only is given an active fallback above.
+   On touch devices we disable hover transforms entirely to avoid sticky states. */
+@media (hover: none) {
+  .home__card:hover, .game-card:hover, .envelope:hover { transform: none; }
+}
+
+/* ---------- Tall modern phones: a touch more breathing room ---------- */
+@supports (height: 100svh) {
+  body { min-height: 100svh; }
+}

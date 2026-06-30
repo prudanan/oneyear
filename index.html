@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0" />
+  <meta name="theme-color" content="#2B1430" />
+  <meta name="description" content="A little corner of the internet, made with love." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Happy One Year ❤️</title>
+
+  <!-- Fonts: Cormorant Garamond (display) + Inter (body). Loaded from Google Fonts. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/animations.css" />
+  <link rel="stylesheet" href="styles/mobile.css" />
+</head>
+
+<body>
+  <!-- Animated gradient + particle backdrop (sits behind everything) -->
+  <div class="backdrop" aria-hidden="true">
+    <div class="backdrop__gradient"></div>
+    <canvas id="particle-canvas" class="backdrop__particles"></canvas>
+    <div id="hearts-layer" class="backdrop__hearts"></div>
+  </div>
+
+  <!-- ============================================================
+       INTRO SCREEN
+  ============================================================= -->
+  <section id="intro" class="intro" role="button" tabindex="0"
+           aria-label="Tap anywhere to begin">
+    <div class="intro__inner">
+      <div class="intro__eyebrow">one year</div>
+      <h1 class="intro__title">Happy One Year <span class="intro__heart">❤️</span></h1>
+      <p class="intro__subtitle" id="intro-subtitle">For the most amazing girl.</p>
+      <div class="intro__cta">
+        <span class="intro__pulse" aria-hidden="true"></span>
+        <span class="intro__cta-text">Tap anywhere to begin</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MAIN APP (revealed after the first tap)
+  ============================================================= -->
+  <main id="app" class="app" hidden>
+
+    <!-- ---- HOME / COUNTER ---- -->
+    <section class="view view--home" id="view-home" data-view="home" tabindex="-1" aria-labelledby="home-title">
+      <div class="view__scroll">
+        <header class="home__hero">
+          <p class="eyebrow">together since the very first day</p>
+          <h2 class="home__greeting" id="home-title">Hi, <span id="her-name">love</span></h2>
+          <p class="home__lede">Here's a little something I made for you — tap through it slowly.</p>
+        </header>
+
+        <div class="counter glass" aria-live="polite">
+          <p class="counter__label">We've been together for</p>
+          <div class="counter__grid">
+            <div class="counter__unit">
+              <span class="counter__value" id="count-days" data-unit="days">0</span>
+              <span class="counter__name">Days</span>
+            </div>
+            <div class="counter__unit">
+              <span class="counter__value" id="count-hours" data-unit="hours">0</span>
+              <span class="counter__name">Hours</span>
+            </div>
+            <div class="counter__unit">
+              <span class="counter__value" id="count-minutes" data-unit="minutes">0</span>
+              <span class="counter__name">Minutes</span>
+            </div>
+            <div class="counter__unit">
+              <span class="counter__value" id="count-seconds" data-unit="seconds">0</span>
+              <span class="counter__name">Seconds</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="photos" id="photo-strip" aria-label="A few of my favorite moments"></div>
+
+        <nav class="home__cards" aria-label="Explore">
+          <button class="home__card glass" data-goto="reasons">
+            <span class="home__card-icon" aria-hidden="true">✉️</span>
+            <span class="home__card-title">100 Reasons</span>
+            <span class="home__card-sub">why I love you</span>
+          </button>
+          <button class="home__card glass" data-goto="games">
+            <span class="home__card-icon" aria-hidden="true">✨</span>
+            <span class="home__card-title">Play With Me</span>
+            <span class="home__card-sub">four little games</span>
+          </button>
+          <button class="home__card glass" data-goto="letter">
+            <span class="home__card-icon" aria-hidden="true">💌</span>
+            <span class="home__card-title">A Letter</span>
+            <span class="home__card-sub">read this last</span>
+          </button>
+        </nav>
+        <div class="view__spacer"></div>
+      </div>
+    </section>
+
+    <!-- ---- 100 REASONS ---- -->
+    <section class="view" id="view-reasons" data-view="reasons" tabindex="-1" hidden aria-labelledby="reasons-title">
+      <div class="view__scroll">
+        <header class="section-head">
+          <p class="eyebrow">open one a day, or all at once</p>
+          <h2 class="section-title" id="reasons-title">Reasons I Love You</h2>
+          <div class="reasons__progress">
+            <div class="reasons__bar"><span id="reasons-fill" class="reasons__fill"></span></div>
+            <p class="reasons__count"><span id="reasons-opened">0</span> / <span id="reasons-total">100</span> opened</p>
+            <button class="btn btn--ghost btn--small" id="reasons-reset" type="button">Reset all</button>
+          </div>
+        </header>
+        <div class="reasons__grid" id="reasons-grid" role="list" aria-label="100 envelopes"></div>
+        <div class="view__spacer"></div>
+      </div>
+    </section>
+
+    <!-- ---- GAMES HUB ---- -->
+    <section class="view" id="view-games" data-view="games" tabindex="-1" hidden aria-labelledby="games-title">
+      <div class="view__scroll">
+        <header class="section-head">
+          <p class="eyebrow">a few things to do together</p>
+          <h2 class="section-title" id="games-title">Play With Me</h2>
+        </header>
+        <div class="games__grid">
+          <button class="game-card glass" data-game="memory">
+            <span class="game-card__icon" aria-hidden="true">🃏</span>
+            <span class="game-card__title">Memory Match</span>
+            <span class="game-card__sub">find every pair</span>
+          </button>
+          <button class="game-card glass" data-game="catch">
+            <span class="game-card__icon" aria-hidden="true">🧺</span>
+            <span class="game-card__title">Catch the Hearts</span>
+            <span class="game-card__sub">fill the love meter</span>
+          </button>
+          <button class="game-card glass" data-game="bouquet">
+            <span class="game-card__icon" aria-hidden="true">🌷</span>
+            <span class="game-card__title">Build a Bouquet</span>
+            <span class="game-card__sub">just for you</span>
+          </button>
+          <button class="game-card glass" data-game="quotes">
+            <span class="game-card__icon" aria-hidden="true">💬</span>
+            <span class="game-card__title">Guess Who Said It</span>
+            <span class="game-card__sub">me or you?</span>
+          </button>
+        </div>
+        <div class="view__spacer"></div>
+      </div>
+    </section>
+
+    <!-- ---- LETTER ---- -->
+    <section class="view view--letter" id="view-letter" data-view="letter" tabindex="-1" hidden aria-labelledby="letter-title">
+      <div class="view__scroll view__scroll--center">
+        <article class="letter glass">
+          <h2 class="visually-hidden" id="letter-title">A letter for you</h2>
+          <p class="letter__body" id="letter-body" aria-live="polite"></p>
+          <p class="letter__sign" id="letter-sign" hidden></p>
+          <button class="btn btn--gold" id="letter-replay" type="button" hidden>Read it again</button>
+        </article>
+      </div>
+    </section>
+
+    <!-- ---- BOTTOM NAVIGATION (app-style) ---- -->
+    <nav class="tabbar" aria-label="Main navigation">
+      <button class="tabbar__btn is-active" data-goto="home" aria-current="page">
+        <span class="tabbar__icon" aria-hidden="true">❤</span><span class="tabbar__text">Home</span>
+      </button>
+      <button class="tabbar__btn" data-goto="reasons">
+        <span class="tabbar__icon" aria-hidden="true">✉</span><span class="tabbar__text">Reasons</span>
+      </button>
+      <button class="tabbar__btn" data-goto="games">
+        <span class="tabbar__icon" aria-hidden="true">✦</span><span class="tabbar__text">Play</span>
+      </button>
+      <button class="tabbar__btn" data-goto="letter">
+        <span class="tabbar__icon" aria-hidden="true">✎</span><span class="tabbar__text">Letter</span>
+      </button>
+    </nav>
+
+    <!-- ---- MUSIC TOGGLE ---- -->
+    <button id="music-toggle" class="music-toggle" type="button" aria-pressed="true" aria-label="Toggle music" hidden>
+      <span class="music-toggle__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    </button>
+  </main>
+
+  <!-- ============================================================
+       GAME MODAL (shared shell for the four games)
+  ============================================================= -->
+  <div id="modal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__panel glass" role="document">
+      <header class="modal__head">
+        <h3 class="modal__title" id="modal-title">Game</h3>
+        <button class="modal__close" type="button" data-close aria-label="Close game">✕</button>
+      </header>
+      <div class="modal__body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Confetti / sparkle canvas (overlays everything for celebrations) -->
+  <canvas id="confetti-canvas" class="confetti-canvas" aria-hidden="true"></canvas>
+
+  <!-- Optional background music element (src injected from config) -->
+  <audio id="bg-music" loop preload="none"></audio>
+
+  <!-- =========================================================
+       SCRIPTS  (classic order so it works from file:// too)
+  ========================================================== -->
+  <script src="config.js"></script>
+  <script src="scripts/music.js"></script>
+  <script src="scripts/counter.js"></script>
+  <script src="scripts/reasons.js"></script>
+  <script src="scripts/memory.js"></script>
+  <script src="scripts/hearts.js"></script>
+  <script src="scripts/bouquet.js"></script>
+  <script src="scripts/quotes.js"></script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>

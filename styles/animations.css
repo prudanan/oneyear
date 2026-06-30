@@ -1,0 +1,122 @@
+/* =====================================================================
+   ANIMATIONS.CSS — all keyframes & motion helpers in one place.
+   Respects prefers-reduced-motion at the bottom.
+   ===================================================================== */
+
+/* Slow drift of the background gradient */
+@keyframes gradientDrift {
+  0%   { background-position: 0% 0%; }
+  25%  { background-position: 100% 30%; }
+  50%  { background-position: 60% 100%; }
+  75%  { background-position: 0% 70%; }
+  100% { background-position: 0% 0%; }
+}
+
+/* Gentle entrance: fade + rise */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* Heartbeat for the intro emoji */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14%      { transform: scale(1.22); }
+  28%      { transform: scale(1); }
+  42%      { transform: scale(1.16); }
+  56%      { transform: scale(1); }
+}
+
+/* Floating drift for cards, photos, the CTA pill */
+@keyframes floaty {
+  0%, 100% { transform: translateY(0) rotate(var(--tilt, 0deg)); }
+  50%      { transform: translateY(-9px) rotate(var(--tilt, 0deg)); }
+}
+
+/* Glowing dot pulse */
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.6); opacity: 0.55; }
+}
+
+/* Number pop when counters tick or a win lands */
+@keyframes numberPop {
+  0%   { transform: translateY(6px) scale(0.8); opacity: 0; }
+  60%  { transform: translateY(-2px) scale(1.08); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* Modal entrance */
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(28px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Blinking caret for the typewriter letter */
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* Bloom growing into the bouquet */
+@keyframes bloomIn {
+  0%   { transform: translateX(-50%) scale(0) rotate(-20deg); opacity: 0; }
+  60%  { transform: translateX(-50%) scale(1.18) rotate(4deg); opacity: 1; }
+  100% { transform: translateX(-50%) scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* Music equalizer bars */
+@keyframes equalize {
+  0%, 100% { height: 35%; }
+  50%      { height: 100%; }
+}
+
+/* Floating hearts rising in the backdrop (applied via JS inline duration) */
+@keyframes heartRise {
+  0%   { transform: translateY(0) translateX(0) scale(var(--s, 1)) rotate(0deg); opacity: 0; }
+  10%  { opacity: var(--o, 0.5); }
+  90%  { opacity: var(--o, 0.5); }
+  100% { transform: translateY(-112svh) translateX(var(--drift, 0px)) scale(var(--s, 1)) rotate(var(--rot, 30deg)); opacity: 0; }
+}
+
+/* Sparkle twinkle (used for micro-sparkles) */
+@keyframes twinkle {
+  0%, 100% { transform: scale(0) rotate(0deg); opacity: 0; }
+  50%      { transform: scale(1) rotate(90deg); opacity: 1; }
+}
+
+/* Shake feedback (wrong answers, missed catches) */
+@keyframes shakeX {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-7px); }
+  40%, 80% { transform: translateX(7px); }
+}
+.shake { animation: shakeX 0.45s var(--ease-soft); }
+
+/* Pop scale used for matched cards / correct answers */
+@keyframes popScale {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+.pop { animation: popScale 0.4s var(--ease); }
+
+/* Reusable scroll-reveal: elements start hidden, .in reveals them */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+
+/* Stagger helper (set --i via inline style for sequential reveals) */
+.stagger { transition-delay: calc(var(--i, 0) * 45ms); }
+
+/* =====================================================================
+   REDUCED MOTION — honor user setting site-wide
+   ===================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .backdrop__gradient { animation: none; }
+  .reveal { opacity: 1; transform: none; }
+  .intro__eyebrow, .intro__title, .intro__subtitle, .intro__cta { opacity: 1; animation: none; }
+}
